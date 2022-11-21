@@ -1,15 +1,27 @@
 import { useState, useEffect } from "react";
 import { FaSignInAlt, FaRegSmileBeam } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { Spiner } from "../components";
+import { login, reset } from "../store/slices/authSlice";
 
 const Login = () => {
 
   const [formData, setFormData] = useState({
-    name: '',
+    email: '',
     password: '',
   })
 
   const onSubmit = (e) => {
     e.preventDefault()
+
+    const userData = {
+      email,
+      password
+    }
+
+    dispatch(login(userData))
   }
 
   const onChange = (e) => {
@@ -22,6 +34,26 @@ const Login = () => {
   }
   
   const { email, password } = formData
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user, isSuccess, isError, isLoading, message } = useSelector(state => state.auth);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message)
+    }
+
+    if (isSuccess || user) {
+      navigate('/')
+    }
+
+    dispatch(reset())
+  }, [isError, isSuccess, isLoading, user, message, navigate, dispatch])
+
+  if (isLoading) {
+    return <Spiner />
+  }
 
   return (
     <div className="rounded-lg bg-gray-50 border-2 border-gray-100 pt-4 pb-8 my-8">
