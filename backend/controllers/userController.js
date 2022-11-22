@@ -85,13 +85,7 @@ const loginUser = asyncHandler( async (req, res) => {
 //* access:      Private
 const getInfo = asyncHandler( async (req, res) => {
     //* below we can access to the user in the request bescause this route went through the protect() middleware, in this middleware in "../middlewares/authMiddleware.js" we wrote: (req.user = await User.findById(decoded.id).select("-password"))
-    const { id, name, email } = await User.findById(req.user.id)
-
-    res.status(200).json({
-        id,
-        name,
-        email
-    })
+    res.status(200).json(req.user)
 })
 
 

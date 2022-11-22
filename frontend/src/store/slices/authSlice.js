@@ -52,7 +52,7 @@ export const login = createAsyncThunk(
 export const logout = createAsyncThunk(
     "auth/logout",
     async () => {
-        localStorage.clear()
+        localStorage.removeItem("user")
     }
 )
 
@@ -90,7 +90,7 @@ const authSlice = createSlice({
             state.user = null;
         })
 
-        builder.addCase(logout.fulfilled, (state, action) => {
+        builder.addCase(logout.fulfilled, (state) => {
             state.user = null;
         })
 

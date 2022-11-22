@@ -42,18 +42,15 @@ const updateGoal = asyncHandler(async (req, res) => {
         throw new Error("Goal not found")
     }
 
-    const currentUser = await User.findById(req.user.id)
-
     //* Check for user
-    if (!currentUser) {
+    if (!req.user) {
         res.status(401)
         throw new Error("User not found")
     }
     
-
     //* Check that the user is the same who created this goal
     //! below we converted the id of user in goal model to String because we can only make an equality between to strings
-    if (currentUser.id !== goal.user.toString()) { 
+    if (req.user.id !== goal.user.toString()) { 
         res.status(403)
         throw new Error("Forbidden")
     }
@@ -77,17 +74,14 @@ const removeGoal = asyncHandler(async (req, res) => {
         throw new Error("Goal not found")
     }
 
-    const currentUser = await User.findById(req.user.id)
-
     //* Check for user
-    if (!currentUser) {
+    if (!req.user) {
         res.status(401)
         throw new Error("User not found")
     }
 
-
     //* Check that the user is the same who created this goal
-    if (currentUser.id !== goal.user.toString()) { 
+    if (req.user.id !== goal.user.toString()) { 
         res.status(403)
         throw new Error("Forbidden")
     }
