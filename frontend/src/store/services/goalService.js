@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = process.env.APP_URL;
+const API_URL = process.env.API_URL;
 
 
 //* Get Goals
@@ -12,7 +12,7 @@ const getGoals = async (token) => {
         }
     }
     
-    const res = await axios.get(API_URL, config)
+    const res = await axios.get(API_URL + "goals", config)
     
     return res.data
 }
@@ -26,14 +26,14 @@ const createGoal = async (goalData, token) => {
         }
     }
     
-    const res = await axios.post(API_URL, goalData, config)  //! the second arg in axios.post() IS THE body, AND YOU SHOULD MAKW SURE THAT THE CONTENT OF IT IS AN OBJECT, we passed it as an object in the GoalForm.jsx directly like this: dispatch(createGoal({text}))
+    const res = await axios.post(API_URL + "goals", goalData, config)  //! the second arg in axios.post() IS THE body, AND YOU SHOULD MAKW SURE THAT THE CONTENT OF IT IS AN OBJECT, we passed it as an object in the GoalForm.jsx directly like this: dispatch(createGoal({text}))
     
     return res.data
 }
 
 //* Update Goal
 const updateGoal = async (id, goalData) => {
-    const res = await axios.put(API_URL + `${id}`, goalData)
+    const res = await axios.put(API_URL + "goals" + `${id}`, goalData)
     return res.data
 }
 
@@ -46,7 +46,7 @@ const removeGoal = async (id, token) => {
         }
     }
 
-    const res = await axios.delete(API_URL + `${id}`, config)
+    const res = await axios.delete(API_URL + "goals" + `${id}`, config)
     return res.data
 }
 
