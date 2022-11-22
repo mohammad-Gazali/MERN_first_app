@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const API_URL = process.env.API_URL;
+const API_URL = "https://mern-first-app-gazali.onrender.com/api/";
 
 //* Register user
 const register = async (userData) => {
