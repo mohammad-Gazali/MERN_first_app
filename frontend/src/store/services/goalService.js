@@ -46,7 +46,7 @@ const removeGoal = async (id, token) => {
         }
     }
 
-    const res = await axios.delete(API_URL + "goals" + `${id}`, config)
+    const res = await axios.delete(API_URL + "goals/" + `${id}`, config)
     return res.data
 }
 
